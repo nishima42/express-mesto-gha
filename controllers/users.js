@@ -31,7 +31,12 @@ module.exports.getUser = (req, res) => {
         _id: user._id,
       });
     })
-    .catch((err) => res.status(serverError).send({ message: 'На сервере произошла ошибка' }));
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return res.status(badRequestCode).send({ message: 'Переданы некорректные данные пользователя.' });
+      }
+      return res.status(serverError).send({ message: 'На сервере произошла ошибка' });
+    });
 };
 
 module.exports.getUsers = (req, res) => {

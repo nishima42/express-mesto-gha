@@ -40,7 +40,12 @@ module.exports.deleteCard = (req, res) => {
         res.send({ message: 'Пост удалён' });
       }
     })
-    .catch((err) => res.status(serverError).send({ message: 'На сервере произошла ошибка' }));
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return res.status(badRequestCode).send({ message: 'Переданы некорректные данные карточки' });
+      }
+      return res.status(serverError).send({ message: 'На сервере произошла ошибка' });
+    });
 };
 
 module.exports.likeCard = (req, res) => {
@@ -51,7 +56,7 @@ module.exports.likeCard = (req, res) => {
   )
     .then((card) => {
       if (!card) {
-        res.status(badRequestCode).send({ message: 'Карточка с указанным _id не найдена.' });
+        res.status(notFoundCode).send({ message: 'Карточка с указанным _id не найдена.' });
       } else {
         res.send({
           createdAt: card.createdAt,
