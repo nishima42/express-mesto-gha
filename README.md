@@ -20,3 +20,6 @@
 
 ## Автор
 Рустам Маликов.
+
+## Ссылка на репозиторий
+https://github.com/nishima42/express-mesto-gha
