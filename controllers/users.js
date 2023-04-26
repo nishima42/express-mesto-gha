@@ -42,7 +42,7 @@ module.exports.getUser = (req, res) => {
 module.exports.getUsers = (req, res) => {
   User.find({})
     .then((users) => res.send({ data: users }))
-    .catch((err) => res.status(SERVER_ERROR).send({ message: 'На сервере произошла ошибка' }));
+    .catch(() => res.status(SERVER_ERROR).send({ message: 'На сервере произошла ошибка' }));
 };
 
 module.exports.updateUser = (req, res) => {
