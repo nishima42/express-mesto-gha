@@ -6,13 +6,11 @@ const {
   likeCard,
   dislikeCard,
 } = require('../controllers/cards');
-const { handleNotFound } = require('../controllers/errors');
 
-cards.get('/cards', getCards);
-cards.post('/cards', createCard);
-cards.delete('/cards/:cardId', deleteCard);
-cards.put('/cards/:cardId/likes', likeCard);
-cards.delete('/cards/:cardId/likes', dislikeCard);
-cards.all('*', handleNotFound);
+cards.get('/', getCards);
+cards.post('/', createCard);
+cards.delete('/:cardId', deleteCard);
+cards.put('/:cardId/likes', likeCard);
+cards.delete('/:cardId/likes', dislikeCard);
 
 module.exports = cards;

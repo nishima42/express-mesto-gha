@@ -1,9 +1,9 @@
 const User = require('../models/user');
 
 const {
-  badRequestCode,
-  notFoundCode,
-  serverError,
+  BAD_REQUEST,
+  NOT_FOUND,
+  SERVER_ERROR,
 } = require('../constants');
 
 module.exports.createUser = (req, res) => {
@@ -12,9 +12,9 @@ module.exports.createUser = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(badRequestCode).send({ message: 'Переданы некорректные данные при создании пользователя.' });
+        return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные при создании пользователя.' });
       }
-      return res.status(serverError).send({ message: 'На сервере произошла ошибка' });
+      return res.status(SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -22,7 +22,7 @@ module.exports.getUser = (req, res) => {
   User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
-        return res.status(notFoundCode).send({ message: 'Пользователь по указанному _id не найден.' });
+        return res.status(NOT_FOUND).send({ message: 'Пользователь по указанному _id не найден.' });
       }
       return res.send({
         name: user.name,
@@ -32,17 +32,17 @@ module.exports.getUser = (req, res) => {
       });
     })
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        return res.status(badRequestCode).send({ message: 'Переданы некорректные данные пользователя.' });
+      if (err.name === 'CastError') {
+        return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные пользователя.' });
       }
-      return res.status(serverError).send({ message: 'На сервере произошла ошибка' });
+      return res.status(SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
 module.exports.getUsers = (req, res) => {
   User.find({})
     .then((users) => res.send({ data: users }))
-    .catch((err) => res.status(serverError).send({ message: 'На сервере произошла ошибка' }));
+    .catch((err) => res.status(SERVER_ERROR).send({ message: 'На сервере произошла ошибка' }));
 };
 
 module.exports.updateUser = (req, res) => {
@@ -57,7 +57,7 @@ module.exports.updateUser = (req, res) => {
   )
     .then((user) => {
       if (!user) {
-        return res.status(notFoundCode).send({ message: 'Пользователь с указанным _id не найден.' });
+        return res.status(NOT_FOUND).send({ message: 'Пользователь с указанным _id не найден.' });
       }
       return res.send({
         name: user.name,
@@ -68,9 +68,9 @@ module.exports.updateUser = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(badRequestCode).send({ message: 'Переданы некорректные данные при обновлении профиля' });
+        return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные при обновлении профиля' });
       }
-      return res.status(serverError).send({ message: 'На сервере произошла ошибка' });
+      return res.status(SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -83,7 +83,7 @@ module.exports.updateAvatar = (req, res) => {
   )
     .then((user) => {
       if (!user) {
-        return res.status(notFoundCode).send({ message: 'Пользователь с указанным _id не найден.' });
+        return res.status(NOT_FOUND).send({ message: 'Пользователь с указанным _id не найден.' });
       }
       return res.send({
         name: user.name,
@@ -94,8 +94,8 @@ module.exports.updateAvatar = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(badRequestCode).send({ message: 'Переданы некорректные данные при обновлении профиля' });
+        return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные при обновлении профиля' });
       }
-      return res.status(serverError).send({ message: 'На сервере произошла ошибка' });
+      return res.status(SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
     });
 };

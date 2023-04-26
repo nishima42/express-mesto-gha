@@ -1,9 +1,11 @@
-const badRequestCode = 400;
-const notFoundCode = 404;
-const serverError = 500;
+const BAD_REQUEST = 400;
+const NOT_FOUND = 404;
+const SERVER_ERROR = 500;
+const CREATED = 201;
 
 module.exports = {
-  badRequestCode,
-  notFoundCode,
-  serverError,
+  BAD_REQUEST,
+  NOT_FOUND,
+  SERVER_ERROR,
+  CREATED,
 };
