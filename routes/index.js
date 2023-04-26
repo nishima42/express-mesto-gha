@@ -3,7 +3,7 @@ const users = require('./users');
 const cards = require('./cards');
 const { handleNotFound } = require('../controllers/errors');
 
-router.use('/user', users);
+router.use('/users', users);
 router.use('/cards', cards);
 router.all('*', handleNotFound);
 
