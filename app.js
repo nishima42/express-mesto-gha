@@ -10,6 +10,7 @@ const { createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { BAD_REQUEST } = require('./constants');
 const { createUserValidation } = require('./middlewares/validation');
+const { BadRequestError } = require('./errors/BadRequestError');
 
 const { PORT = 3000 } = process.env;
 
@@ -33,6 +34,9 @@ app.use(errors());
 app.use((err, req, res, next) => {
   if (err.name === 'CastError') {
     return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные.' });
+  }
+  if (err.name === 'ValidationError' || err instanceof BadRequestError) {
+    return res.status(BAD_REQUEST).send({ message: 'Oshibka validatsii.' });
   }
   const { statusCode = 500, message } = err;
   return res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });

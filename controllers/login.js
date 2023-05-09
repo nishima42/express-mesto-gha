@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { UNAUTHORIZED } = require('../constants');
+const { BAD_REQUEST } = require('../constants');
 
 module.exports.login = (req, res) => {
   const { email, password } = req.body;
@@ -16,6 +16,6 @@ module.exports.login = (req, res) => {
         .send({ token });
     })
     .catch((err) => {
-      res.status(UNAUTHORIZED).send({ message: err.message });
+      res.status(BAD_REQUEST).send({ message: err.message });
     });
 };
