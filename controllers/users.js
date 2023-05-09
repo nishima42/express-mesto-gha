@@ -26,7 +26,12 @@ module.exports.createUser = (req, res, next) => {
           email,
           password: hash,
         }))
-        .then((user) => res.status(CREATED).send({ data: user }))
+        .then((user) => res.status(CREATED).send({
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+          _id: user._id,
+        }))
         .catch(next);
     })
     .catch(next);
