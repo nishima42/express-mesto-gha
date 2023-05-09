@@ -7,7 +7,7 @@ const createUserValidation = celebrate({
     avatar: Joi.string().uri(),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
-  }),
+  }).unknown(true),
 });
 
 const updateUserValidation = celebrate({
