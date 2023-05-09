@@ -11,9 +11,10 @@
   "author": "Rustam Malikov",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.39.0",
+    "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.27.5",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "nodemon": "^2.0.22"
   },

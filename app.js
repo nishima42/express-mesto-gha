@@ -29,7 +29,7 @@ app.use('/', router);
 
 app.use(errors());
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   if (err.name === 'CastError') {
     return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные.' });
   }
@@ -37,13 +37,7 @@ app.use((err, req, res) => {
     return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные пользователя.' });
   }
   const { statusCode = 500, message } = err;
-  return res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
+  return res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
 });
 
 app.listen(PORT);
