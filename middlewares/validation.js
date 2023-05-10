@@ -12,6 +12,12 @@ const createUserValidation = celebrate({
   }).unknown(true),
 });
 
+const userIdValidation = celebrate({
+  params: Joi.object().keys({
+    userId: Joi.string().alphanum().length(24),
+  }),
+});
+
 const updateUserValidation = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
@@ -51,6 +57,7 @@ const loginValidation = celebrate({
 
 module.exports = {
   createUserValidation,
+  userIdValidation,
   updateUserValidation,
   updateAvatarValidation,
   createCardValidation,
