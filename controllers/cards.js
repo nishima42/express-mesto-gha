@@ -1,6 +1,6 @@
 const Card = require('../models/card');
-const NotFoundError = require('../errors/NotFoundError');
-const ForbiddenError = require('../errors/ForbiddenError');
+const { NotFoundError } = require('../errors/NotFoundError');
+const { ForbiddenError } = require('../errors/ForbiddenError');
 
 const { CREATED } = require('../constants');
 
@@ -33,7 +33,7 @@ module.exports.deleteCard = (req, res, next) => {
         // res.status(NOT_FOUND).send({ message: 'Карточка с указанным _id не найдена.' });
         throw new NotFoundError('Карточка с указанным _id не найдена.');
       }
-      if (card.owner._id !== req.user._id) {
+      if (card.owner._id.toString() !== req.user._id.toString()) {
         // res.status(403).send({ message: 'Вы не можете удалить эту карточку' });
         throw new ForbiddenError('Вы не можете удалить эту карточку');
       }

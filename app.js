@@ -41,6 +41,9 @@ app.use((err, req, res, next) => {
   if (err.name === 'ValidationError' || err instanceof BadRequestError) {
     return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные.' });
   }
+  if (err.code === 11000) {
+    return res.status(409).send({ message: 'Пользователь с таким email уже зарегистрирован.' });
+  }
   const { statusCode = 500, message } = err;
   return res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
 });
